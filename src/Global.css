@@ -2,9 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
+}
+
+@layer utilities {
+  .animate-gradient-motion {
+    background: linear-gradient(90deg, #7e22ce, #9333ea, #4f46e5, #0f172a);
+    background-size: 300% 300%;
+    animation: gradientMotion 15s ease infinite;
+  }
+
+  @keyframes gradientMotion {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .animate-fade-in-left {
+    animation: fadeInLeft 1s ease-out forwards;
+  }
+
+  .animate-fade-in-right {
+    animation: fadeInRight 1s ease-out forwards;
+  }
+
+  .animation-delay-300 {
+    animation-delay: 0.3s;
+  }
+
+  .animation-delay-500 {
+    animation-delay: 1s;
+  }
+
+  @keyframes fadeInLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeInRight {
+    0% {
+      opacity: 0;
+      transform: translateX(40px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 }
