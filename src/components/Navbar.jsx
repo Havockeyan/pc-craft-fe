@@ -16,7 +16,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-4">
-        <button className="bg-orange-800 hover:bg-orange-500 px-4 py-1.5 text-sm rounded-xl transition-colors duration-200">
+        <button className="bg-orange-500 hover:bg-orange-700 px-4 py-1.5 text-sm rounded-xl transition-colors duration-200">
           Login
         </button>
       </div>
