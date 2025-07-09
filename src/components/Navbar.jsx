@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from '../assets/pc_craft_logo.png';
+import LoginForm from './LoginForm';
 
 const Navbar = () => {
+  const [showLogin, setShowLogin] = useState(false);
+
   return (
     <nav className="flex justify-between items-center px-6 py-4 text-white">
       <div className="flex items-center gap-2">
@@ -16,10 +19,14 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-4">
-        <button className="bg-orange-500 hover:bg-orange-700 px-4 py-1.5 text-sm rounded-xl transition-colors duration-200">
+        <button
+          className="bg-orange-500 hover:bg-orange-700 px-4 py-1.5 text-sm rounded-xl transition-colors duration-200"
+          onClick={() => setShowLogin(true)}
+        >
           Login
         </button>
       </div>
+      {showLogin && <LoginForm onClose={() => setShowLogin(false)} />}
     </nav>
   );
 };
