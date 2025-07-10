@@ -1,8 +1,6 @@
 name: React CI
 
 on:
-  push:
-    branches: ["**"]  # runs on every branch push
   pull_request:
     branches: ["**"]  # runs on every PR to any branch
 
