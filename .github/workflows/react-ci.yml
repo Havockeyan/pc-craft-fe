@@ -2,7 +2,7 @@ name: React CI
 
 on:
   pull_request:
-    branches: ["**"]  # runs on every PR to any branch
+    branches: ["**"]
 
 jobs:
   build:
