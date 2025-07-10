@@ -1,7 +1,9 @@
 
 const Explore = () => {
   return (
-    <div>Explore</div>
+    <>
+      <div>Explore</div>
+    </>
   )
 }
 
