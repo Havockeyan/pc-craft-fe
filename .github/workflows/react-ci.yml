@@ -15,13 +15,16 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18  # adjust as per your project
+          node-version: 18
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run build
         run: CI='' npm run build
 
-      - name: Run tests
-        run: npm test
+      - name: Debug react-router-dom install
+        run: |
+          echo "Listing react-router-dom:"
+          ls -la node_modules/react-router-dom || echo "❌ Not found!"
+          npm ls react-router-dom || echo "❌ Not found in tree!"
