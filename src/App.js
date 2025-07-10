@@ -1,6 +1,6 @@
 import Hero from "./components/hero.jsx";
 import Navbar from "./components/Navbar.jsx";
-import Build_Pc from "./components/pages/Build_Pc.jsx";
+import BuildPc from "./components/pages/BuildPc.jsx";
 import Contact from "./components/pages/Contact.jsx";
 import Explore from "./components/pages/Explore.jsx";
 import LoginForm from "./components/pages/LoginForm.jsx";
@@ -24,7 +24,7 @@ function App() {
     <Route path="/Explore" element={<Explore />} />
     <Route path="/Contact us" element={<Contact />} />
     
-    <Route path="/Start Building" element={<Build_Pc />} />
+    <Route path="/Start Building" element={<BuildPc />} />
     </Routes>
     </BrowserRouter>
 
