@@ -1,7 +1,10 @@
 import React from 'react';
 import logo from '../assets/pc_craft_logo.png';
+import { Link } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = ({onLoginClick}) => {
+  
+
   return (
     <nav className="flex justify-between items-center px-6 py-4 text-white">
       <div className="flex items-center gap-2">
@@ -10,13 +13,16 @@ const Navbar = () => {
       </div>
 
       <div className="hidden md:flex items-center gap-8 text-sm">
-        <a href="#" className="hover:text-orange-400 transition-colors duration-200">Home</a>
-        <a href="#" className="hover:text-orange-400 transition-colors duration-200">Explore</a>
-        <a href="#" className="hover:text-orange-400 transition-colors duration-200">Contact us</a>
+        <Link to='/' className="hover:text-orange-400 transition-colors duration-200">Home</Link>
+        <Link to='/Explore' className="hover:text-orange-400 transition-colors duration-200">Explore</Link>
+        <Link to='/Contact us'className="hover:text-orange-400 transition-colors duration-200">Contact us</Link>
       </div>
 
+
       <div className="flex items-center gap-4">
-        <button className="bg-orange-500 hover:bg-orange-700 px-4 py-1.5 text-sm rounded-xl transition-colors duration-200">
+        <input
+        type="text" placeholder="search...."  className="px-3 py-1.5 rounded-xl text-sm text-black focus:outline-none focus:ring-2 focus:ring-orange-500" />
+        <button onClick={onLoginClick} className="bg-orange-500 hover:bg-orange-700 px-4 py-1.5 text-sm rounded-xl transition-colors duration-200">
           Login
         </button>
       </div>

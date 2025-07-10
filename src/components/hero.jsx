@@ -1,9 +1,12 @@
 import React from 'react'
 import pc from '../assets/pc_img-removebg-preview.png'
+import { useNavigate } from 'react-router-dom';
 
 
 const Hero = () => {
+  const navigate = useNavigate();
   return (
+    
     <>
     <section className='min-h-[80vh] flex flex-col-reverse md:flex-row items-center px-20 py-16'>
     {/* Left: Text Section */}
@@ -20,7 +23,7 @@ const Hero = () => {
         <p className='text-gray-300 mb-6'>
         Customize high-performance machines tailored to your needs with the best components.
         </p>
-        <button className="bg-orange-500 hover:bg-orange-700 transition 
+        <button onClick={()=>navigate("/Start Building")} className="bg-orange-500 hover:bg-orange-700 transition 
                            px-6 py-2 rounded-lg text-sm font-semibold">Start Building</button>
 
         </div>
