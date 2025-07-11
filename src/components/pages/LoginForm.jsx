@@ -11,7 +11,7 @@ const LoginForm = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md z-50">
       <div className="bg-gray-900 p-8 rounded-xl shadow-lg w-full max-w-sm">
         <h2 className="text-2xl font-bold mb-6 text-white text-center">Login</h2>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
