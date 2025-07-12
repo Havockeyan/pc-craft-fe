@@ -2,7 +2,7 @@ import React from 'react';
 import logo from '../assets/pc_craft_logo.png';
 import { Link } from 'react-router-dom';
 
-const Navbar = ({onLoginClick}) => {
+const Navbar = ({onLoginClick,onSignUpClick}) => {
   
 
   return (
@@ -24,6 +24,9 @@ const Navbar = ({onLoginClick}) => {
         type="text" placeholder="search...."  className="px-3 py-1.5 rounded-xl text-sm text-black focus:outline-none focus:ring-2 focus:ring-orange-500" />
         <button onClick={onLoginClick} className="bg-orange-500 hover:bg-orange-700 px-4 py-1.5 text-sm rounded-xl transition-colors duration-200">
           Login
+        </button>
+        <button onClick={onSignUpClick} className="bg-orange-500 hover:bg-orange-700 px-4 py-1.5 text-sm rounded-xl transition-colors duration-200">
+          SignUp
         </button>
       </div>
     </nav>
