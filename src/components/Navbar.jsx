@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -22,9 +23,3 @@ const Navbar = ({ onLoginClick }) => {
             Login
           </button>
         </div>
-      </div>
-    </nav>
-  );
-};
-
-export default Navbar;
