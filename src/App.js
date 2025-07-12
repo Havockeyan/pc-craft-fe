@@ -7,6 +7,7 @@ import Explore from "./components/pages/Explore";
 import BuildPc from "./components/pages/BuildPc";
 import Contact from "./components/pages/Contact";
 import LoginForm from "./components/pages/LoginForm";
+import SignUpForm from "./components/pages/SignUpForm";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -26,10 +27,11 @@ function App() {
             <Route path="/Explore" element={<Explore />} />
             <Route path="/Start Building" element={<BuildPc />} />
             <Route path="/Contact us" element={<Contact />} />
+            <Route path="/signup" element={<SignUpForm />} />
           </Routes>
-        </BrowserRouter>
 
-        {showLogin && <LoginForm onClose={() => setShowLogin(false)} />}
+          {showLogin && <LoginForm onClose={() => setShowLogin(false)} />}
+        </BrowserRouter>
       </div>
     </AnimatePresence>
   );
