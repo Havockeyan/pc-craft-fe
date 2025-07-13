@@ -8,6 +8,7 @@ import Contact from "./components/pages/Contact.jsx";
 import Explore from "./components/pages/Explore.jsx";
 import LoginForm from "./components/pages/LoginForm.jsx";
 import SignUpForm from "./components/pages/SignUpForm.jsx";
+import AdminPage from "./components/pages/Admin/AdminPage.jsx";
 
 function App() {
   const [showLogin, setshowLogin] = useState(false);
@@ -39,6 +40,7 @@ function App() {
           <Route path="/Explore" element={<Explore />} />
           <Route path="/Contact us" element={<Contact />} />
           <Route path="/Start Building" element={<BuildPc />} />
+          <Route path="/admin" element={<AdminPage />} />
         </Routes>
       </BrowserRouter>
 
