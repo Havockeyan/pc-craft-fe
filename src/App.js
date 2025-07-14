@@ -8,12 +8,14 @@ import BuildPc from "./components/pages/BuildPc";
 import Contact from "./components/pages/Contact";
 import LoginForm from "./components/pages/LoginForm";
 import SignUpForm from "./components/pages/SignUpForm";
+import { CartProvider } from "./components/pages/CartContext";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
 
   return (
     <AnimatePresence mode="wait">
+      <CartProvider>
       <div className="min-h-screen relative text-white overflow-x-hidden">
         {/* Global background */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,_#6b21a8_30%,_#000000_100%)] z-[-2]" />
@@ -33,6 +35,7 @@ function App() {
           {showLogin && <LoginForm onClose={() => setShowLogin(false)} />}
         </BrowserRouter>
       </div>
+      </CartProvider>
     </AnimatePresence>
   );
 }
