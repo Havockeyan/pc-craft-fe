@@ -3,8 +3,13 @@ import { Link } from "react-router-dom";
 import cartIcon from "../assets/Cart.png";
 import CartDrawer from "./pages/CartDrawer";
 
+
 const Navbar = ({ onLoginClick }) => {
   const [isCartOpen, setisCartOpen] = useState(false);
+
+const Navbar = ({onLoginClick,onSignUpClick}) => {
+  
+
 
   const toggleCart =()=>{
     setisCartOpen(!isCartOpen);
@@ -23,6 +28,7 @@ const Navbar = ({ onLoginClick }) => {
           
           <Link to="/Contact us" className="hover:text-orange-400 transition">Contact</Link>
 
+
           <img src={cartIcon}  alt="Cart" className="w-6 h-6 cursor-pointer" onClick={toggleCart} />
           <button
             onClick={onLoginClick}
@@ -31,6 +37,7 @@ const Navbar = ({ onLoginClick }) => {
             Login
           </button>
         </div>
+
       </div>
     </nav>
    

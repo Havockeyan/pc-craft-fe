@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 
 const SignUpForm = ({ onClose = () => {}, onLoginClick = () => {} }) => {
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
 
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate(); // For redirecting to login
@@ -13,10 +16,12 @@ const SignUpForm = ({ onClose = () => {}, onLoginClick = () => {} }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+
     if (password !== confirmPassword) {
       alert('Passwords do not match!');
       return;
     }
+
 
     try {
       const response = await fetch(`${API_URL}/signup`, {
@@ -44,6 +49,10 @@ const SignUpForm = ({ onClose = () => {}, onLoginClick = () => {} }) => {
       console.error('Signup error:', error);
       alert('Server error. Please try again later.');
     }
+
+    // Handle sign-up logic here
+    onClose();
+
   };
 
   return (
@@ -98,6 +107,7 @@ const SignUpForm = ({ onClose = () => {}, onLoginClick = () => {} }) => {
           Cancel
         </button>
 
+
         <p className="mt-4 text-sm text-center text-gray-400">
           Already have an account?{' '}
           <span
@@ -111,9 +121,11 @@ const SignUpForm = ({ onClose = () => {}, onLoginClick = () => {} }) => {
             Log In
           </span>
         </p>
+
       </div>
     </div>
   );
 };
+
 
 export default SignUpForm;

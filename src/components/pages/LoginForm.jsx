@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 
+
 import { Link } from 'react-router-dom';
 
 const LoginForm = ({ onClose, onSignUpClick = () => {} }) => {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const API_URL = process.env.REACT_APP_API_URL;
@@ -75,6 +77,7 @@ const LoginForm = ({ onClose, onSignUpClick = () => {} }) => {
         </button>
 
 
+
         <p className="mt-4 text-sm text-center text-gray-400">
           Don’t have an account?{' '}
           <Link
@@ -88,6 +91,7 @@ const LoginForm = ({ onClose, onSignUpClick = () => {} }) => {
             Sign Up
           </Link>
         </p>
+
 
       </div>
     </div>
