@@ -1,17 +1,45 @@
 import React, { useState } from 'react';
 
-const LoginForm = ({ onClose, onSignUpClick }) => {
+
+import { Link } from 'react-router-dom';
+
+const LoginForm = ({ onClose, onSignUpClick = () => {} }) => {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const API_URL = process.env.REACT_APP_API_URL;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here
-    onClose();
+
+    try {
+      const response = await fetch(`${API_URL}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Login successful!', data);
+        onClose();
+      } else {
+        alert(data.message || 'Login failed');
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      alert('Server error, please try again later');
+    }
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md z-50">
+
+
+
       <div className="bg-gray-900 p-8 rounded-xl shadow-lg w-full max-w-sm">
         <h2 className="text-2xl font-bold mb-6 text-white text-center">Login</h2>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -38,24 +66,33 @@ const LoginForm = ({ onClose, onSignUpClick }) => {
             Log In
           </button>
         </form>
+
+
+
         <button
           onClick={onClose}
           className="mt-4 text-sm text-gray-400 hover:text-orange-400 w-full text-center"
         >
           Cancel
         </button>
+
+
+
         <p className="mt-4 text-sm text-center text-gray-400">
-            Don’t have an account?{' '}
-            <span
-              className="text-orange-400 hover:underline cursor-pointer"
-              onClick={() => {
-                onClose();
-                onSignUpClick(); 
-              }}
-            >
-              Log In
-            </span>
-          </p>
+          Don’t have an account?{' '}
+          <Link
+          to='/signup'
+            className="text-orange-400 hover:underline cursor-pointer"
+            onClick={() => {
+              onClose();
+              onSignUpClick(); 
+            }}
+          >
+            Sign Up
+          </Link>
+        </p>
+
+
       </div>
     </div>
   );
