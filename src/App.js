@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
@@ -37,7 +38,6 @@ function App() {
       </div>
       </CartProvider>
     </AnimatePresence>
-  );
-}
+  )}
 
-export default App;
+  export default App;
