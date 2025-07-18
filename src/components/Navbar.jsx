@@ -2,8 +2,8 @@ import React from 'react';
 import logo from '../assets/pc_craft_logo.png';
 import { Link } from 'react-router-dom';
 
-const Navbar = ({onLoginClick,onSignUpClick}) => {
-  
+const Navbar = ({ onLoginClick, onSignUpClick, isLoggedIn }) => {
+
 
   return (
     <nav className="flex justify-between items-center px-6 py-4 text-white">
@@ -18,16 +18,23 @@ const Navbar = ({onLoginClick,onSignUpClick}) => {
         <Link to='/Contact us'className="hover:text-orange-400 transition-colors duration-200">Contact us</Link>
       </div>
 
-
       <div className="flex items-center gap-4">
         <input
-        type="text" placeholder="search...."  className="px-3 py-1.5 rounded-xl text-sm text-black focus:outline-none focus:ring-2 focus:ring-orange-500" />
-        <button onClick={onLoginClick} className="bg-orange-500 hover:bg-orange-700 px-4 py-1.5 text-sm rounded-xl transition-colors duration-200">
-          Login
-        </button>
-        <button onClick={onSignUpClick} className="bg-orange-500 hover:bg-orange-700 px-4 py-1.5 text-sm rounded-xl transition-colors duration-200">
-          SignUp
-        </button>
+          type="text"
+          placeholder="search...."
+          className={`px-3 py-1.5 rounded-xl text-sm text-black focus:outline-none focus:ring-2 focus:ring-orange-500 ${isLoggedIn ? 'bg-gray-300' : ''}`}
+          disabled={isLoggedIn}
+        />
+        {!isLoggedIn && (
+          <>
+            <button onClick={onLoginClick} className="bg-orange-500 hover:bg-orange-700 px-4 py-1.5 text-sm rounded-xl transition-colors duration-200">
+              Login
+            </button>
+            <button onClick={onSignUpClick} className="bg-orange-500 hover:bg-orange-700 px-4 py-1.5 text-sm rounded-xl transition-colors duration-200">
+              SignUp
+            </button>
+          </>
+        )}
       </div>
     </nav>
   );

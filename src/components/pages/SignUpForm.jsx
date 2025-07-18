@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { getApiDomain } from '../../apiDomain';
 
 const SignUpForm = ({ onClose, onLoginClick }) => {
   const [name, setName] = useState('');
@@ -6,14 +8,31 @@ const SignUpForm = ({ onClose, onLoginClick }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert('Passwords do not match!');
       return;
     }
-    // Handle sign-up logic here
-    onClose();
+    try {
+      const response = await axios.post(`${getApiDomain()}/api/users/signup`, {
+        username: name,
+        email,
+        password,
+        phone: "" // Add phone as required by API doc, can be empty or add a phone field if you want
+      });
+      // According to API doc, tokens are in response.data.accessToken and response.data.refreshToken
+      if (response.data.accessToken && response.data.refreshToken) {
+        localStorage.setItem('accessToken', response.data.accessToken);
+        localStorage.setItem('refreshToken', response.data.refreshToken);
+        onClose();
+      } else {
+        // throw new Error('Tokens not found');
+      }
+    } catch (error) {
+      // API doc: error is in error.response.data.error
+      alert(error.response?.data?.error || error.message);
+    }
   };
 
   return (

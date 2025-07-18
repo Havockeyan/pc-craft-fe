@@ -1,13 +1,31 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { getApiDomain } from '../../apiDomain';
 
-const LoginForm = ({ onClose, onSignUpClick }) => {
+const LoginForm = ({ onClose, onSignUpClick, onLoginSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here
-    onClose();
+    try {
+      const response = await axios.post(`${getApiDomain()}/api/users/login`, {
+        email,
+        password,
+      });
+      // According to API doc, tokens are in response.data.accessToken and response.data.refreshToken
+      if (response.data.accessToken && response.data.refreshToken) {
+        localStorage.setItem('accessToken', response.data.accessToken);
+        localStorage.setItem('refreshToken', response.data.refreshToken);
+        if (onLoginSuccess) onLoginSuccess();
+        onClose();
+      } else {
+        // throw new Error('Tokens not found');
+      }
+    } catch (error) {
+      // API doc: error is in error.response.data.error
+      alert(error.response?.data?.error || error.message);
+    }
   };
 
   return (
@@ -53,7 +71,7 @@ const LoginForm = ({ onClose, onSignUpClick }) => {
                 onSignUpClick(); 
               }}
             >
-              Log In
+              Signup
             </span>
           </p>
       </div>

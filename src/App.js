@@ -13,8 +13,8 @@ import AdminPage from "./components/pages/Admin/AdminPage.jsx";
 function App() {
   const [showLogin, setshowLogin] = useState(false);
   const [showSignUp, setshowSignUp] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('jwtToken'));
 
-  // ✅ FIXED: Define these before usage
   const openLogin = () => {
     setshowLogin(true);
     setshowSignUp(false);
@@ -32,8 +32,7 @@ function App() {
       <div className="absolute inset-0 animate-gradient-motion z-[-1] opacity-80 mix-blend-overlay" />
 
       <BrowserRouter>
-        {/* ✅ FIXED: Pass login/signup handlers */}
-        <Navbar onLoginClick={openLogin} onSignUpClick={openSignUp} />
+        <Navbar onLoginClick={openLogin} onSignUpClick={openSignUp} isLoggedIn={isLoggedIn} />
 
         <Routes>
           <Route path="/" element={<Hero />} />
@@ -48,6 +47,7 @@ function App() {
       {showLogin && (
         <LoginForm
           onClose={() => setshowLogin(false)}
+          onLoginSuccess={() => setIsLoggedIn(true)}
           onSignUpClick={openSignUp}
         />
       )}
