@@ -2,34 +2,49 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { getApiDomain } from '../../apiDomain';
 
-const LoginForm = ({ onClose, onSignUpClick, onLoginSuccess }) => {
+
+import { Link } from 'react-router-dom';
+
+const LoginForm = ({ onClose, onSignUpClick = () => {} }) => {
+
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+
     try {
-      const response = await axios.post(`${getApiDomain()}/api/users/login`, {
-        email,
-        password,
+      const response = await fetch(`${API_URL}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
       });
-      // According to API doc, tokens are in response.data.accessToken and response.data.refreshToken
-      if (response.data.accessToken && response.data.refreshToken) {
-        localStorage.setItem('accessToken', response.data.accessToken);
-        localStorage.setItem('refreshToken', response.data.refreshToken);
-        if (onLoginSuccess) onLoginSuccess();
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Login successful!', data);
         onClose();
       } else {
-        // throw new Error('Tokens not found');
+        alert(data.message || 'Login failed');
       }
-    } catch (error) {
-      // API doc: error is in error.response.data.error
-      alert(error.response?.data?.error || error.message);
+    } catch (err) {
+      console.error('Login error:', err);
+      alert('Server error, please try again later');
+
     }
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md z-50">
+
+
+
       <div className="bg-gray-900 p-8 rounded-xl shadow-lg w-full max-w-sm">
         <h2 className="text-2xl font-bold mb-6 text-white text-center">Login</h2>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -56,24 +71,35 @@ const LoginForm = ({ onClose, onSignUpClick, onLoginSuccess }) => {
             Log In
           </button>
         </form>
+
+
+
         <button
           onClick={onClose}
           className="mt-4 text-sm text-gray-400 hover:text-orange-400 w-full text-center"
         >
           Cancel
         </button>
+
+
+
         <p className="mt-4 text-sm text-center text-gray-400">
-            Don’t have an account?{' '}
-            <span
-              className="text-orange-400 hover:underline cursor-pointer"
-              onClick={() => {
-                onClose();
-                onSignUpClick(); 
-              }}
-            >
-              Signup
-            </span>
-          </p>
+
+          Don’t have an account?{' '}
+          <Link
+          to='/signup'
+            className="text-orange-400 hover:underline cursor-pointer"
+            onClick={() => {
+              onClose();
+              onSignUpClick(); 
+            }}
+          >
+            Sign Up
+          </Link>
+        </p>
+
+
+
       </div>
     </div>
   );

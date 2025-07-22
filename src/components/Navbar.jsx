@@ -1,43 +1,53 @@
-import React from 'react';
-import logo from '../assets/pc_craft_logo.png';
-import { Link } from 'react-router-dom';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import cartIcon from "../assets/Cart.png";
+import CartDrawer from "./pages/CartDrawer";
+
+
+const Navbar = ({ onLoginClick }) => {
+  const [isCartOpen, setisCartOpen] = useState(false);
 
 const Navbar = ({ onLoginClick, onSignUpClick, isLoggedIn }) => {
 
 
+
+  const toggleCart =()=>{
+    setisCartOpen(!isCartOpen);
+  }
   return (
-    <nav className="flex justify-between items-center px-6 py-4 text-white">
-      <div className="flex items-center gap-2">
-        <img src={logo} alt="logo" className="h-10" />
-        <h1 className="font-bold text-lg">PC CRAFT</h1>
-      </div>
+    <>
+    <nav className="fixed top-0 w-full z-40 bg-transparent backdrop-blur-sm">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center text-white">
+        <Link to="/" className="text-2xl font-bold text-orange-500">
+          PC Craft
+        </Link>
 
-      <div className="hidden md:flex items-center gap-8 text-sm">
-        <Link to='/' className="hover:text-orange-400 transition-colors duration-200">Home</Link>
-        <Link to='/Explore' className="hover:text-orange-400 transition-colors duration-200">Explore</Link>
-        <Link to='/Contact us'className="hover:text-orange-400 transition-colors duration-200">Contact us</Link>
-      </div>
+        <div className="flex gap-6 items-center">
+          <Link to="/" className="hover:text-orange-400 transition">Home</Link>
+          <Link to="/Explore" className="hover:text-orange-400 transition">Explore</Link>
+          
+          <Link to="/Contact us" className="hover:text-orange-400 transition">Contact</Link>
 
-      <div className="flex items-center gap-4">
-        <input
-          type="text"
-          placeholder="search...."
-          className={`px-3 py-1.5 rounded-xl text-sm text-black focus:outline-none focus:ring-2 focus:ring-orange-500 ${isLoggedIn ? 'bg-gray-300' : ''}`}
-          disabled={isLoggedIn}
-        />
-        {!isLoggedIn && (
-          <>
-            <button onClick={onLoginClick} className="bg-orange-500 hover:bg-orange-700 px-4 py-1.5 text-sm rounded-xl transition-colors duration-200">
-              Login
-            </button>
-            <button onClick={onSignUpClick} className="bg-orange-500 hover:bg-orange-700 px-4 py-1.5 text-sm rounded-xl transition-colors duration-200">
-              SignUp
-            </button>
-          </>
-        )}
+
+
+          <img src={cartIcon}  alt="Cart" className="w-6 h-6 cursor-pointer" onClick={toggleCart} />
+          <button
+            onClick={onLoginClick}
+            className="bg-orange-500 hover:bg-orange-700 px-4 py-1 rounded-lg text-sm font-semibold ml-4"
+          >
+            Login
+          </button>
+        </div>
+
+
       </div>
     </nav>
+   
+
+    {isCartOpen && <CartDrawer onClose={toggleCart} />}
+    </>
   );
 };
+
 
 export default Navbar;

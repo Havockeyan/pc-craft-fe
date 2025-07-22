@@ -2,18 +2,63 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { getApiDomain } from '../../apiDomain';
 
-const SignUpForm = ({ onClose, onLoginClick }) => {
+import { useNavigate } from 'react-router-dom';
+
+const SignUpForm = ({ onClose = () => {}, onLoginClick = () => {} }) => {
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+
+
+  const API_URL = process.env.REACT_APP_API_URL;
+  const navigate = useNavigate(); // For redirecting to login
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+
     if (password !== confirmPassword) {
       alert('Passwords do not match!');
       return;
     }
+
+
+
+    try {
+      const response = await fetch(`${API_URL}/signup`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('Signup successful!');
+        onClose(); 
+        navigate('/login'); // Redirect to login page
+      } else {
+        alert(data.message || 'Signup failed.');
+      }
+    } catch (error) {
+      console.error('Signup error:', error);
+      alert('Server error. Please try again later.');
+    }
+
+    // Handle sign-up logic here
+    onClose();
+
+
     try {
       const response = await axios.post(`${getApiDomain()}/api/users/signup`, {
         username: name,
@@ -33,6 +78,7 @@ const SignUpForm = ({ onClose, onLoginClick }) => {
       // API doc: error is in error.response.data.error
       alert(error.response?.data?.error || error.message);
     }
+
   };
 
   return (
@@ -79,29 +125,33 @@ const SignUpForm = ({ onClose, onLoginClick }) => {
             Sign Up
           </button>
         </form>
+
         <button
           onClick={onClose}
           className="mt-4 text-sm text-gray-400 hover:text-orange-400 w-full text-center"
         >
           Cancel
         </button>
-        {onLoginClick && (
-          <p className="mt-4 text-sm text-center text-gray-400">
-            Already have an account?{' '}
-            <span
-              className="text-orange-400 hover:underline cursor-pointer"
-              onClick={() => {
-                onClose(); // Close Sign Up
-                onLoginClick(); // Open Login
-              }}
-            >
-              Log In
-            </span>
-          </p>
-        )}
+
+
+        <p className="mt-4 text-sm text-center text-gray-400">
+          Already have an account?{' '}
+          <span
+            className="text-orange-400 hover:underline cursor-pointer"
+            onClick={() => {
+              onClose();
+              onLoginClick();
+              navigate('/login');
+            }}
+          >
+            Log In
+          </span>
+        </p>
+
       </div>
     </div>
   );
 };
+
 
 export default SignUpForm;
