@@ -13,6 +13,7 @@ import SignUpForm from "./components/pages/SignUpForm";
 import { CartProvider } from "./components/pages/CartContext";
 
 function App() {
+
   const [showLogin, setShowLogin] = useState(false);
 
   return (

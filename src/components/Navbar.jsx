@@ -7,8 +7,8 @@ import CartDrawer from "./pages/CartDrawer";
 const Navbar = ({ onLoginClick }) => {
   const [isCartOpen, setisCartOpen] = useState(false);
 
-const Navbar = ({onLoginClick,onSignUpClick}) => {
-  
+const Navbar = ({ onLoginClick, onSignUpClick, isLoggedIn }) => {
+
 
 
   const toggleCart =()=>{
@@ -29,6 +29,7 @@ const Navbar = ({onLoginClick,onSignUpClick}) => {
           <Link to="/Contact us" className="hover:text-orange-400 transition">Contact</Link>
 
 
+
           <img src={cartIcon}  alt="Cart" className="w-6 h-6 cursor-pointer" onClick={toggleCart} />
           <button
             onClick={onLoginClick}
@@ -37,6 +38,7 @@ const Navbar = ({onLoginClick,onSignUpClick}) => {
             Login
           </button>
         </div>
+
 
       </div>
     </nav>

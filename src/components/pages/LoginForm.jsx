@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { getApiDomain } from '../../apiDomain';
 
 
 import { Link } from 'react-router-dom';
 
 const LoginForm = ({ onClose, onSignUpClick = () => {} }) => {
+
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -11,6 +14,7 @@ const LoginForm = ({ onClose, onSignUpClick = () => {} }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
 
     try {
       const response = await fetch(`${API_URL}/login`, {
@@ -32,6 +36,7 @@ const LoginForm = ({ onClose, onSignUpClick = () => {} }) => {
     } catch (err) {
       console.error('Login error:', err);
       alert('Server error, please try again later');
+
     }
   };
 
@@ -79,6 +84,7 @@ const LoginForm = ({ onClose, onSignUpClick = () => {} }) => {
 
 
         <p className="mt-4 text-sm text-center text-gray-400">
+
           Don’t have an account?{' '}
           <Link
           to='/signup'
@@ -91,6 +97,7 @@ const LoginForm = ({ onClose, onSignUpClick = () => {} }) => {
             Sign Up
           </Link>
         </p>
+
 
 
       </div>

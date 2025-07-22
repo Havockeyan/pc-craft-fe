@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { getApiDomain } from '../../apiDomain';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -10,8 +12,10 @@ const SignUpForm = ({ onClose = () => {}, onLoginClick = () => {} }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
 
+
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate(); // For redirecting to login
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,6 +25,7 @@ const SignUpForm = ({ onClose = () => {}, onLoginClick = () => {} }) => {
       alert('Passwords do not match!');
       return;
     }
+
 
 
     try {
@@ -52,6 +57,27 @@ const SignUpForm = ({ onClose = () => {}, onLoginClick = () => {} }) => {
 
     // Handle sign-up logic here
     onClose();
+
+
+    try {
+      const response = await axios.post(`${getApiDomain()}/api/users/signup`, {
+        username: name,
+        email,
+        password,
+        phone: "" // Add phone as required by API doc, can be empty or add a phone field if you want
+      });
+      // According to API doc, tokens are in response.data.accessToken and response.data.refreshToken
+      if (response.data.accessToken && response.data.refreshToken) {
+        localStorage.setItem('accessToken', response.data.accessToken);
+        localStorage.setItem('refreshToken', response.data.refreshToken);
+        onClose();
+      } else {
+        // throw new Error('Tokens not found');
+      }
+    } catch (error) {
+      // API doc: error is in error.response.data.error
+      alert(error.response?.data?.error || error.message);
+    }
 
   };
 
